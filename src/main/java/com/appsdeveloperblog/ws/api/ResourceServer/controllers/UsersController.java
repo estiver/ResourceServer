@@ -27,10 +27,11 @@ public class UsersController {
 		return "Working on port: " + env.getProperty("local.server.port");
 	}
 	
-	@PreAuthorize("hasAuthority('ROLE_developer') or #id == #jwt.subject") 
+	@PreAuthorize("hasAuthority('ROLE_developer') and #id == #jwt.subject and @securityService.hasClienteRH('12345678000100')") 
 	//@Secured("ROLE_developer")
     @DeleteMapping(path = "/{id}")
     public String deleteUser(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
+		System.out.println("clientes: "+ jwt.getClaimAsStringList("clientes_rh"));
         return "Deleted user with id " + id + " and JWT subject " + jwt.getSubject();
     }
 	

@@ -16,10 +16,24 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true)
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+	/*
+	 * @Override protected void configure(HttpSecurity http) throws Exception {
+	 * 
+	 * //JwtAuthenticationConverter jwtAuthenticationConverter = new
+	 * JwtAuthenticationConverter();
+	 * //jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new
+	 * KeycloakRoleConverter());
+	 * 
+	 * http//.cors().and() .authorizeRequests() .antMatchers(HttpMethod.GET,
+	 * "/users/status/check") .hasAuthority("SCOPE_profile") //.hasRole("developer")
+	 * //.hasAnyAuthority("ROLE_developer") //.hasAnyRole("devleoper","user")
+	 * .anyRequest().authenticated() .and() .oauth2ResourceServer() .jwt() //
+	 * .jwtAuthenticationConverter(jwtAuthenticationConverter) ; }
+	 */
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
+	
 		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
 	 
@@ -36,6 +50,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.jwt()
 			.jwtAuthenticationConverter(jwtAuthenticationConverter);
 	}
+	
 	
 //	@Bean
 //	CorsConfigurationSource corsConfigurationSource() {
